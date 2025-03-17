@@ -1,0 +1,19 @@
+.spacer {
+  flex: 1 1 auto;
+}
+
+mat-toolbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+}
+
+.nav-items {
+  margin-left: 24px;
+
+  a {
+    margin-right: 8px;
+  }
+}
