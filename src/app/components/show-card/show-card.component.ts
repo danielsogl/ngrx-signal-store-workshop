@@ -41,7 +41,7 @@ import { WatchlistButtonComponent } from '../watchlist-button/watchlist-button.c
           [itemId]="show.id"
           itemType="tv"
           [title]="show.name"
-          [posterPath]="show.poster_path | tmdbImage"
+          [posterPath]="show.poster_path || ''"
         >
         </app-watchlist-button>
       </mat-card-actions>

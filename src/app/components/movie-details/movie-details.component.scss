@@ -76,3 +76,13 @@ mat-card-actions {
   padding-top: 1rem;
   border-top: 1px solid #eee;
 }
+
+.title-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  h1 {
+    margin: 0;
+  }
+}

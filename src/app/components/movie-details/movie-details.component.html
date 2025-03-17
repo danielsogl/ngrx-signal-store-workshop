@@ -17,7 +17,15 @@
           class="poster"
         />
         <div class="info">
-          <h1>{{ movie.title }}</h1>
+          <div class="title-row">
+            <h1>{{ movie.title }}</h1>
+            <app-watchlist-button
+              [itemId]="movie.id"
+              itemType="movie"
+              [title]="movie.title"
+              [posterPath]="movie.poster_path"
+            />
+          </div>
           <p class="tagline">{{ movie.tagline }}</p>
           <div class="meta">
             <span>{{ movie.release_date | date }}</span>

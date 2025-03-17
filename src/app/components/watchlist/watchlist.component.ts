@@ -4,11 +4,18 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
 import { WatchlistService } from '../../services/watchlist.service';
+import { TmdbImagePipe } from '../../pipes/tmdb-image.pipe';
 
 @Component({
   selector: 'app-watchlist',
   standalone: true,
-  imports: [MatCardModule, MatButtonModule, MatIconModule, RouterModule],
+  imports: [
+    MatCardModule,
+    MatButtonModule,
+    MatIconModule,
+    RouterModule,
+    TmdbImagePipe,
+  ],
   template: `
     <div class="watchlist-container">
       <h2>My Watchlist</h2>
@@ -22,7 +29,11 @@ import { WatchlistService } from '../../services/watchlist.service';
               [class.watched]="item.isWatched"
               (click)="toggleWatched(item.id, item.type)"
             >
-              <img mat-card-image [src]="item.posterPath" [alt]="item.title" />
+              <img
+                mat-card-image
+                [src]="item.posterPath | tmdbImage"
+                [alt]="item.title"
+              />
               <mat-card-content>
                 <h3>{{ item.title }}</h3>
                 <p class="type-badge">

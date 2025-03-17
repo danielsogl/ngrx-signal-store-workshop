@@ -9,6 +9,7 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { switchMap } from 'rxjs';
 import { TmdbImagePipe } from '../../pipes/tmdb-image.pipe';
 import { TMDBService } from '../../services/tmdb.service';
+import { WatchlistButtonComponent } from '../watchlist-button/watchlist-button.component';
 
 @Component({
   selector: 'app-movie-details',
@@ -22,6 +23,7 @@ import { TMDBService } from '../../services/tmdb.service';
     MatIconModule,
     RouterLink,
     TmdbImagePipe,
+    WatchlistButtonComponent,
   ],
   templateUrl: './movie-details.component.html',
   styleUrls: ['./movie-details.component.scss'],

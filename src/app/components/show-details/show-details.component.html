@@ -15,7 +15,15 @@
           class="poster"
         />
         <div class="info">
-          <h1>{{ show.name }}</h1>
+          <div class="title-row">
+            <h1>{{ show.name }}</h1>
+            <app-watchlist-button
+              [itemId]="show.id"
+              itemType="tv"
+              [title]="show.name"
+              [posterPath]="show.poster_path"
+            />
+          </div>
           <p class="tagline">{{ show.tagline }}</p>
           <div class="meta">
             <span>First Air: {{ show.first_air_date | date }}</span>
