@@ -64,6 +64,9 @@
             },
             "development": {
               "buildTarget": "ngrx-signal-store-workshop:build:development"
+            },
+            "options": {
+              "proxyConfig": "./proxy.conf.mjs"
             }
           },
           "defaultConfiguration": "development"
