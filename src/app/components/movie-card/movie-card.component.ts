@@ -4,6 +4,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MovieSearchResult } from '../../models/movie.model';
 import { TmdbImagePipe } from '../../pipes/tmdb-image.pipe';
 import { MatButtonModule } from '@angular/material/button';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-movie-card',
@@ -13,6 +14,7 @@ import { MatButtonModule } from '@angular/material/button';
     TmdbImagePipe,
     SlicePipe,
     DecimalPipe,
+    RouterLink,
   ],
   template: ` @let movie = this.movie();
 
@@ -30,7 +32,9 @@ import { MatButtonModule } from '@angular/material/button';
         </div>
       </mat-card-content>
       <mat-card-actions>
-        <button mat-button color="primary">View Details</button>
+        <button mat-button color="primary" [routerLink]="['/movie', movie.id]">
+          View Details
+        </button>
       </mat-card-actions>
     </mat-card>`,
 })

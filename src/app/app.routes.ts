@@ -6,4 +6,9 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./components/media-overview/media-overview.component'),
   },
+  {
+    path: 'movie/:movieId',
+    loadComponent: () =>
+      import('./components/movie-details/movie-details.component'),
+  },
 ];
