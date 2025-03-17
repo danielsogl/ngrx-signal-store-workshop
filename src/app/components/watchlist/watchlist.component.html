@@ -1,0 +1,41 @@
+<div class="watchlist-container">
+  <h2>My Watchlist</h2>
+
+  @if (watchlist().length === 0) {
+    <p>Your watchlist is empty. Start adding movies and TV shows!</p>
+  } @else {
+    <div class="watchlist-grid">
+      @for (item of watchlist(); track item.id) {
+        <mat-card
+          [class.watched]="item.isWatched"
+          (click)="toggleWatched(item.id, item.type)"
+        >
+          <img
+            mat-card-image
+            [src]="item.posterPath | tmdbImage"
+            [alt]="item.title"
+          />
+          <mat-card-content>
+            <h3>{{ item.title }}</h3>
+            <p class="type-badge">
+              {{ item.type === "movie" ? "Movie" : "TV Show" }}
+            </p>
+          </mat-card-content>
+          <mat-card-actions>
+            <button
+              mat-icon-button
+              color="warn"
+              (click)="
+                removeFromWatchlist(item.id, item.type);
+                $event.stopPropagation()
+              "
+              aria-label="Remove from watchlist"
+            >
+              <mat-icon>delete</mat-icon>
+            </button>
+          </mat-card-actions>
+        </mat-card>
+      }
+    </div>
+  }
+</div>
