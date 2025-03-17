@@ -2,6 +2,7 @@ import { DecimalPipe, SlicePipe } from '@angular/common';
 import { Component, input } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { RouterLink } from '@angular/router';
 import { ShowSearchResult } from '../../models/ts-shows.model';
 import { TmdbImagePipe } from '../../pipes/tmdb-image.pipe';
 
@@ -13,6 +14,7 @@ import { TmdbImagePipe } from '../../pipes/tmdb-image.pipe';
     TmdbImagePipe,
     SlicePipe,
     DecimalPipe,
+    RouterLink,
   ],
   template: ` @let show = this.show();
 
@@ -30,7 +32,9 @@ import { TmdbImagePipe } from '../../pipes/tmdb-image.pipe';
         </div>
       </mat-card-content>
       <mat-card-actions>
-        <button mat-button color="primary">View Details</button>
+        <button mat-button color="primary" [routerLink]="['/show', show.id]">
+          View Details
+        </button>
       </mat-card-actions>
     </mat-card>`,
 })

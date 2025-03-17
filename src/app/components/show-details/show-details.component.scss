@@ -1,0 +1,98 @@
+.show-details {
+  position: relative;
+  min-height: 100vh;
+  padding: 2rem;
+  box-sizing: border-box;
+}
+
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  z-index: -1;
+
+  .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+  }
+}
+
+.content {
+  max-width: 1200px;
+  margin: 0 auto;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
+
+  .header {
+    display: flex;
+    gap: 2rem;
+    padding: 2rem;
+
+    .poster {
+      width: 300px;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .info {
+      flex: 1;
+
+      h1 {
+        margin: 0 0 0.5rem;
+        font-size: 2.5rem;
+      }
+
+      .tagline {
+        font-style: italic;
+        color: #666;
+        margin-bottom: 1rem;
+      }
+
+      .meta {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 1rem;
+        color: #444;
+      }
+    }
+  }
+
+  mat-card-content {
+    padding: 0 2rem 2rem;
+
+    h2 {
+      margin: 0 0 1rem;
+    }
+
+    p {
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
+  }
+
+  mat-card-actions {
+    padding: 1rem 2rem;
+    border-top: 1px solid #eee;
+  }
+}
+
+@media (max-width: 768px) {
+  .content .header {
+    flex-direction: column;
+
+    .poster {
+      width: 100%;
+      max-width: 300px;
+      margin: 0 auto;
+    }
+  }
+}

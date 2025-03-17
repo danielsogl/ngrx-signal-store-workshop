@@ -11,4 +11,9 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./components/movie-details/movie-details.component'),
   },
+  {
+    path: 'show/:showId',
+    loadComponent: () =>
+      import('./components/show-details/show-details.component'),
+  },
 ];
