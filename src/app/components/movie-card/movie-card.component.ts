@@ -5,6 +5,7 @@ import { MovieSearchResult } from '../../models/movie.model';
 import { TmdbImagePipe } from '../../pipes/tmdb-image.pipe';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
+import { WatchlistButtonComponent } from '../watchlist-button/watchlist-button.component';
 
 @Component({
   selector: 'app-movie-card',
@@ -15,6 +16,7 @@ import { RouterLink } from '@angular/router';
     SlicePipe,
     DecimalPipe,
     RouterLink,
+    WatchlistButtonComponent,
   ],
   template: ` @let movie = this.movie();
 
@@ -35,8 +37,25 @@ import { RouterLink } from '@angular/router';
         <button mat-button color="primary" [routerLink]="['/movie', movie.id]">
           View Details
         </button>
+        <app-watchlist-button
+          [itemId]="movie.id"
+          itemType="movie"
+          [title]="movie.title"
+          [posterPath]="movie.poster_path | tmdbImage"
+        >
+        </app-watchlist-button>
       </mat-card-actions>
     </mat-card>`,
+  styles: [
+    `
+      mat-card-actions {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 8px;
+      }
+    `,
+  ],
 })
 export class MovieCardComponent {
   readonly movie = input.required<MovieSearchResult>();

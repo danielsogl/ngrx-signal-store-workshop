@@ -16,4 +16,8 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./components/show-details/show-details.component'),
   },
+  {
+    path: 'watchlist',
+    loadComponent: () => import('./components/watchlist/watchlist.component'),
+  },
 ];

@@ -9,6 +9,4 @@ import { NavbarComponent } from './components/navbar/navbar.component';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
-  title = 'ngrx-signal-store-workshop';
-}
+export class AppComponent {}

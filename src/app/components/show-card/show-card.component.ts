@@ -5,6 +5,7 @@ import { MatCardModule } from '@angular/material/card';
 import { RouterLink } from '@angular/router';
 import { ShowSearchResult } from '../../models/ts-shows.model';
 import { TmdbImagePipe } from '../../pipes/tmdb-image.pipe';
+import { WatchlistButtonComponent } from '../watchlist-button/watchlist-button.component';
 
 @Component({
   selector: 'app-show-card',
@@ -15,6 +16,7 @@ import { TmdbImagePipe } from '../../pipes/tmdb-image.pipe';
     SlicePipe,
     DecimalPipe,
     RouterLink,
+    WatchlistButtonComponent,
   ],
   template: ` @let show = this.show();
 
@@ -35,8 +37,25 @@ import { TmdbImagePipe } from '../../pipes/tmdb-image.pipe';
         <button mat-button color="primary" [routerLink]="['/show', show.id]">
           View Details
         </button>
+        <app-watchlist-button
+          [itemId]="show.id"
+          itemType="tv"
+          [title]="show.name"
+          [posterPath]="show.poster_path | tmdbImage"
+        >
+        </app-watchlist-button>
       </mat-card-actions>
     </mat-card>`,
+  styles: [
+    `
+      mat-card-actions {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 8px;
+      }
+    `,
+  ],
 })
 export class ComponentsShowCardComponent {
   readonly show = input.required<ShowSearchResult>();
