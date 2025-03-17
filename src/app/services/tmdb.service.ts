@@ -36,4 +36,16 @@ export class TMDBService {
   getShowDetails(id: string): Observable<ShowDetails> {
     return this.http.get<ShowDetails>(`${this.url}/tv/${id}`);
   }
+
+  searchMovies(query: string): Observable<SearchResponse<MovieSearchResult>> {
+    return this.http.get<SearchResponse<MovieSearchResult>>(
+      `${this.url}/search/movie?query=${query}`,
+    );
+  }
+
+  searchShows(query: string): Observable<SearchResponse<ShowSearchResult>> {
+    return this.http.get<SearchResponse<ShowSearchResult>>(
+      `${this.url}/search/tv?query=${query}`,
+    );
+  }
 }
