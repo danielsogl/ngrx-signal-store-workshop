@@ -112,7 +112,27 @@ For services and DI:
 When creating directives and pipes:
 
 - Use attribute directives for presentation logic without templates
-- Prefer `@HostListener` and `@HostBinding` decorators for directive behavior
+- Use the `host` property for host bindings and listeners instead of decorators:
+  ```typescript
+  @Directive({
+    standalone: true,
+    selector: '[appHighlight]',
+    host: {
+      // Host bindings
+      '[class.highlighted]': 'isHighlighted',
+      '[style.color]': 'highlightColor',
+
+      // Host listeners
+      '(click)': 'onClick($event)',
+      '(mouseenter)': 'onMouseEnter()',
+      '(mouseleave)': 'onMouseLeave()',
+
+      // Static properties
+      'role': 'button',
+      '[attr.aria-label]': 'ariaLabel'
+    }
+  })
+  ```
 - Use custom prefixes for directive selectors
 - Make pipes pure when possible for better performance
 - Follow naming conventions for pipes (camelCase)
