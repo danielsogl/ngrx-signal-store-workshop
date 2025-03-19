@@ -57,6 +57,6 @@ import { WatchlistButtonComponent } from '../watchlist-button/watchlist-button.c
     `,
   ],
 })
-export class ComponentsShowCardComponent {
+export class ShowCardComponent {
   readonly show = input.required<ShowSearchResult>();
 }

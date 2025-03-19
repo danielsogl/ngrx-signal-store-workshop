@@ -5,7 +5,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatTabsModule } from '@angular/material/tabs';
 import {
-  combineLatest,
   debounceTime,
   distinctUntilChanged,
   map,
@@ -18,7 +17,7 @@ import { SearchResponse } from '../../models/shared.model';
 import { ShowSearchResult } from '../../models/ts-shows.model';
 import { TMDBService } from '../../services/tmdb.service';
 import { MovieCardComponent } from '../movie-card/movie-card.component';
-import { ComponentsShowCardComponent } from '../show-card/show-card.component';
+import { ShowCardComponent } from '../show-card/show-card.component';
 
 @Component({
   selector: 'app-media-overview',
@@ -30,7 +29,7 @@ import { ComponentsShowCardComponent } from '../show-card/show-card.component';
     MatInputModule,
     MatTabsModule,
     MovieCardComponent,
-    ComponentsShowCardComponent,
+    ShowCardComponent,
   ],
   templateUrl: './media-overview.component.html',
   styleUrls: ['./media-overview.component.scss'],
@@ -45,27 +44,25 @@ export default class MediaOverviewComponent {
     distinctUntilChanged(),
   );
 
-  protected readonly movies$: Observable<MovieSearchResult[]> = combineLatest({
-    searchTerm: this.searchTerm$,
-  }).pipe(
-    switchMap(({ searchTerm }) => {
-      if (!searchTerm) {
-        return this.tmdbService.getTrendingMovies();
-      }
-      return this.tmdbService.searchMovies(searchTerm);
-    }),
-    map((response: SearchResponse<MovieSearchResult>) => response.results),
-  );
+  protected readonly movies$: Observable<MovieSearchResult[]> =
+    this.searchTerm$.pipe(
+      switchMap((searchTerm) => {
+        if (!searchTerm) {
+          return this.tmdbService.getTrendingMovies();
+        }
+        return this.tmdbService.searchMovies(searchTerm);
+      }),
+      map((response: SearchResponse<MovieSearchResult>) => response.results),
+    );
 
-  protected readonly shows$: Observable<ShowSearchResult[]> = combineLatest({
-    searchTerm: this.searchTerm$,
-  }).pipe(
-    switchMap(({ searchTerm }) => {
-      if (!searchTerm) {
-        return this.tmdbService.getTrendingShows();
-      }
-      return this.tmdbService.searchShows(searchTerm);
-    }),
-    map((response: SearchResponse<ShowSearchResult>) => response.results),
-  );
+  protected readonly shows$: Observable<ShowSearchResult[]> =
+    this.searchTerm$.pipe(
+      switchMap((searchTerm) => {
+        if (!searchTerm) {
+          return this.tmdbService.getTrendingShows();
+        }
+        return this.tmdbService.searchShows(searchTerm);
+      }),
+      map((response: SearchResponse<ShowSearchResult>) => response.results),
+    );
 }

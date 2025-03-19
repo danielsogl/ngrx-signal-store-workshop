@@ -1,59 +1,38 @@
-# NgrxSignalStoreWorkshop
+# NgRx Signal Store Workshop
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.3.
+This workshop will guide you through implementing state management with NgRx Signal Store in an Angular application.
 
-## Development server
+## Prerequisites
 
-To start a local development server, run:
+- Basic understanding of Angular and TypeScript
+- Familiarity with Angular Signals
+- Node.js and npm installed
 
-```bash
-ng serve
-```
+## Setup
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+1. Clone this repository
+2. Run `npm install` to install dependencies
+3. Run `npm start` to start the development server
+4. Navigate to `http://localhost:4200` in your browser
 
-## Code scaffolding
+## Workshop Structure
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+The workshop consists of two exercises:
 
-```bash
-ng generate component component-name
-```
+1. **Exercise 1: Creating a WatchlistStore** - Convert an existing service that uses Angular signals to a SignalStore
+2. **Exercise 2: Building a MediaStore** - Create a new store for managing movie and TV show data
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Each exercise has:
 
-```bash
-ng generate --help
-```
+- A README.md with instructions
+- A template folder with starter code
+- A solution folder with a complete implementation
 
-## Building
+## Getting Started
 
-To build the project run:
+Navigate to the `exercises/01-watchlist-store` directory and read the README.md file to begin the first exercise.
 
-```bash
-ng build
-```
+## Resources
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+- [NgRx Signal Store Documentation](https://ngrx.io/guide/signals/signal-store)
+- [Angular Signals Documentation](https://angular.io/guide/signals)
