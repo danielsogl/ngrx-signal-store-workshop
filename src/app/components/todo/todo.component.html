@@ -1,0 +1,100 @@
+<div class="todo-container">
+  <mat-card class="todo-card">
+    <mat-card-header>
+      <mat-card-title>Todo List</mat-card-title>
+      <mat-card-subtitle>
+        @if (todos().length > 0) {
+          <span>
+            {{ activeCount() }} active / {{ completedCount() }} completed
+          </span>
+        }
+      </mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <!-- New Todo Form -->
+      <div class="todo-form">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Add new todo</mat-label>
+          <input
+            matInput
+            [(ngModel)]="newTodoTitle"
+            placeholder="What needs to be done?"
+            (keyup.enter)="addTodo()"
+          />
+          @if (newTodoTitle) {
+            <button
+              matSuffix
+              mat-icon-button
+              aria-label="Clear"
+              (click)="newTodoTitle = ''"
+            >
+              <mat-icon>close</mat-icon>
+            </button>
+          }
+        </mat-form-field>
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="addTodo()"
+          [disabled]="!newTodoTitle.trim()"
+        >
+          Add
+        </button>
+      </div>
+
+      <mat-divider class="divider"></mat-divider>
+
+      <!-- Filters -->
+      <div class="filter-container">
+        <mat-button-toggle-group
+          [value]="filter()"
+          (change)="setFilter($event.value)"
+          aria-label="Todo Filter"
+        >
+          <mat-button-toggle value="all">All</mat-button-toggle>
+          <mat-button-toggle value="active">Active</mat-button-toggle>
+          <mat-button-toggle value="completed">Completed</mat-button-toggle>
+        </mat-button-toggle-group>
+
+        <button
+          mat-button
+          color="warn"
+          (click)="clearCompleted()"
+          [disabled]="completedCount() === 0"
+        >
+          Clear Completed
+        </button>
+      </div>
+
+      <!-- Todo List -->
+      <div class="todo-list">
+        @if (filteredTodos().length === 0) {
+          <div class="empty-state">
+            <p>No todos to display</p>
+          </div>
+        } @else {
+          @for (todo of filteredTodos(); track todo.id) {
+            <div class="todo-item">
+              <mat-checkbox
+                [checked]="todo.completed"
+                (change)="toggleTodo(todo.id)"
+                color="primary"
+              >
+                <span [class.completed]="todo.completed">{{ todo.title }}</span>
+              </mat-checkbox>
+              <button
+                mat-icon-button
+                color="warn"
+                aria-label="Delete todo"
+                (click)="removeTodo(todo.id)"
+              >
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+          }
+        }
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

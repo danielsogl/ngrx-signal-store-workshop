@@ -20,4 +20,8 @@ export const routes: Routes = [
     path: 'watchlist',
     loadComponent: () => import('./components/watchlist/watchlist.component'),
   },
+  {
+    path: 'todos',
+    loadComponent: () => import('./components/todo/todo.component'),
+  },
 ];
