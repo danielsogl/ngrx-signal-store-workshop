@@ -9,7 +9,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatDividerModule } from '@angular/material/divider';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { TodoStore } from './todo.store';
 
 @Component({
@@ -18,11 +17,13 @@ import { TodoStore } from './todo.store';
     <div class="todo-container">
       <mat-card class="todo-card">
         <mat-card-header>
-          <mat-card-title>Todo List (with Signal Store)</mat-card-title>
+          <mat-card-title>Todo List</mat-card-title>
           <mat-card-subtitle>
-            @if (todoStore.todos().length > 0) {
-              {{ todoStore.activeCount() }} active /
-              {{ todoStore.completedCount() }} completed
+            @if (store.todos().length > 0) {
+              <span>
+                {{ store.activeCount() }} active /
+                {{ store.completedCount() }} completed
+              </span>
             }
           </mat-card-subtitle>
         </mat-card-header>
@@ -64,8 +65,8 @@ import { TodoStore } from './todo.store';
           <!-- Filters -->
           <div class="filter-container">
             <mat-button-toggle-group
-              [value]="todoStore.filter()"
-              (change)="todoStore.setFilter($event.value)"
+              [value]="store.filter()"
+              (change)="store.setFilter($event.value)"
               aria-label="Todo Filter"
             >
               <mat-button-toggle value="all">All</mat-button-toggle>
@@ -76,8 +77,8 @@ import { TodoStore } from './todo.store';
             <button
               mat-button
               color="warn"
-              (click)="todoStore.clearCompleted()"
-              [disabled]="todoStore.completedCount() === 0"
+              (click)="store.clearCompleted()"
+              [disabled]="store.completedCount() === 0"
             >
               Clear Completed
             </button>
@@ -85,32 +86,30 @@ import { TodoStore } from './todo.store';
 
           <!-- Todo List -->
           <div class="todo-list">
-            @if (todoStore.filteredTodos().length === 0) {
+            @for (todo of store.filteredTodos(); track todo.id) {
+              <div class="todo-item">
+                <mat-checkbox
+                  [checked]="todo.completed"
+                  (change)="store.toggleTodo(todo.id)"
+                  color="primary"
+                >
+                  <span [class.completed]="todo.completed">{{
+                    todo.title
+                  }}</span>
+                </mat-checkbox>
+                <button
+                  mat-icon-button
+                  color="warn"
+                  aria-label="Delete todo"
+                  (click)="store.removeTodo(todo.id)"
+                >
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>
+            } @empty {
               <div class="empty-state">
                 <p>No todos to display</p>
               </div>
-            } @else {
-              @for (todo of todoStore.filteredTodos(); track todo.id) {
-                <div class="todo-item">
-                  <mat-checkbox
-                    [checked]="todo.completed"
-                    (change)="toggleTodo(todo.id)"
-                    color="primary"
-                  >
-                    <span [class.completed]="todo.completed">{{
-                      todo.title
-                    }}</span>
-                  </mat-checkbox>
-                  <button
-                    mat-icon-button
-                    color="warn"
-                    aria-label="Delete todo"
-                    (click)="todoStore.removeTodo(todo.id)"
-                  >
-                    <mat-icon>delete</mat-icon>
-                  </button>
-                </div>
-              }
             }
           </div>
         </mat-card-content>
@@ -133,34 +132,13 @@ import { TodoStore } from './todo.store';
   providers: [TodoStore],
 })
 export class TodoWithStoreComponent {
-  newTodoTitle = '';
-  todoStore = inject(TodoStore);
+  protected readonly store = inject(TodoStore);
 
-  constructor(private snackBar: MatSnackBar) {
-    // Add some initial todos
-    this.todoStore.addTodo('Learn Angular Signals');
-    this.todoStore.addTodo('Learn NgRx Signal Store');
-  }
+  newTodoTitle = '';
 
   addTodo() {
     if (!this.newTodoTitle.trim()) return;
 
-    this.todoStore.addTodo(this.newTodoTitle);
-    this.snackBar.open(`Added todo: ${this.newTodoTitle}`, 'Close', {
-      duration: 3000,
-    });
-    this.newTodoTitle = '';
-  }
-
-  toggleTodo(id: string) {
-    const todo = this.todoStore.todos().find((t) => t.id === id);
-    this.todoStore.toggleTodo(id);
-
-    if (todo) {
-      const status = !todo.completed ? 'completed' : 'active';
-      this.snackBar.open(`Marked "${todo.title}" as ${status}`, 'Close', {
-        duration: 3000,
-      });
-    }
+    this.store.addTodo(this.newTodoTitle.trim());
   }
 }
