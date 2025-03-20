@@ -44,7 +44,7 @@ export const TodoStore = signalStore(
   })),
 
   // TODO: Implement withMethods for addTodo, toggleTodo, removeTodo, setFilter, clearCompleted
-  withMethods(({ patchState }) => ({
+  withMethods((state) => ({
     // Implementation here
   })),
 );
