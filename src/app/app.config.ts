@@ -1,9 +1,5 @@
 import { provideHttpClient } from '@angular/common/http';
-import {
-  ApplicationConfig,
-  provideExperimentalZonelessChangeDetection,
-} from '@angular/core';
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
 import {
   PreloadAllModules,
   provideRouter,
@@ -15,13 +11,12 @@ import { provideTMDBConfig } from './config/config';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideExperimentalZonelessChangeDetection(),
+    provideZoneChangeDetection(),
     provideRouter(
       routes,
       withComponentInputBinding(),
       withPreloading(PreloadAllModules),
     ),
-    provideAnimationsAsync(),
     provideHttpClient(),
     provideTMDBConfig(),
   ],
