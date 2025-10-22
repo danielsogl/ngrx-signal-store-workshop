@@ -1,5 +1,5 @@
 import { provideHttpClient } from '@angular/common/http';
-import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
+import { ApplicationConfig } from '@angular/core';
 import {
   PreloadAllModules,
   provideRouter,
@@ -11,7 +11,6 @@ import { provideTMDBConfig } from './config/config';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideZoneChangeDetection(),
     provideRouter(
       routes,
       withComponentInputBinding(),
