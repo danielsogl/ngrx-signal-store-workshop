@@ -1,4 +1,4 @@
-import { Component, computed, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
@@ -30,10 +30,12 @@ import { Todo } from '../../models/todo.model';
   ],
 })
 export default class TodoComponent {
+  private readonly snackBar: MatSnackBar = inject(MatSnackBar);
+
   newTodoTitle = '';
 
   // Private signals for internal state management
-  private todosSignal = signal<Todo[]>([
+  private readonly todosSignal = signal<Todo[]>([
     {
       id: '1',
       title: 'Learn Angular Signals',
@@ -47,7 +49,7 @@ export default class TodoComponent {
       createdAt: new Date(),
     },
   ]);
-  private filterSignal = signal<'all' | 'active' | 'completed'>('all');
+  private readonly filterSignal = signal<'all' | 'active' | 'completed'>('all');
 
   // Public read-only signals
   readonly todos = this.todosSignal.asReadonly();
@@ -75,8 +77,6 @@ export default class TodoComponent {
   readonly activeCount = computed(
     () => this.todosSignal().filter((todo) => !todo.completed).length,
   );
-
-  constructor(private snackBar: MatSnackBar) {}
 
   addTodo() {
     if (!this.newTodoTitle.trim()) return;
